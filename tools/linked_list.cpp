@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+#define ll long long
+#define weakson ios::sync_with_stdio(0), cin.tie(0);
+using namespace std;
+
+struct Node{
+    Node *next = nullptr;
+    Node *prev = nullptr;
+    ll num;
+    Node(int x = 0){
+        num = x;
+    }
+};
+
+struct Linked_list{
+    Node *head;
+    Node *tail;
+    int n = 0;
+    Linked_list(){
+        head = new Node;
+        tail = new Node;
+        head -> prev = nullptr;
+        tail -> next = nullptr;
+        head -> next = tail;
+        tail -> prev = head;
+    }
+    Node *insert_after(Node *node, ll data){
+        Node *a = node;
+        Node *b = new Node(data);
+        Node *c = node -> next;
+        a -> next = b;
+        c -> prev = b;
+        b -> prev = a;
+        b -> next = c;
+        n++;
+        return b;
+    }
+    Node *insert_before(Node *node, ll data){
+        return insert_after(node -> prev, data);
+    }
+    void delete_after(Node *node){
+        Node *a = node;
+        Node *c = node -> next -> next;
+        a -> next = c;
+        c -> prev = a;
+        n--;
+    }
+    void delete_before(Node *node){
+        delete_after(node -> prev -> prev);
+    }
+    Node *front(){
+        return head -> next;
+    }
+    Node *back(){
+        return tail -> prev;
+    }
+    int size(){
+        return n;
+    }
+    Node *find(ll data){
+        bool is_found = false;
+        Node *it;
+        for (it = head -> next; it != tail; it = it -> next){
+            if (it -> num == data){
+                is_found = true;
+                break;
+            }
+        }
+        if (is_found) return it;
+        else return tail;
+    }
+};
+Linked_list lin();
+
+int main(){
+    weakson;
+    return 0;
+}
