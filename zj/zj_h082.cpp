@@ -8,75 +8,47 @@
 #define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
 
-int arr[1005];
-vector<pll> v;
-queue<int> q;
-int  n, m;
-
 int main(){
 	weakson;
 
+    int n, m;
     cin >> n >> m;
-    v.resize (n);
-    for (int i = 0; i < n; i++) cin >> v[i].F;
-    for (int i = 0; i < n; i++) cin >> v[i].S;
-    for (int i = 0; i < n; i++){
-        int tmp; cin >> tmp;
-        q.push (tmp);
-    }
 
-    queue<int> w, l;
+    vector<ll> s(n + 5), t(n + 5), q(n);
+    for (int i = 1; i <= n; i++) cin >> s[i];
+    for (int i = 1; i <= n; i++) cin >> t[i];
+    for (int i = 0; i < n; i++) cin >> q[i];
 
-    while (true){
-        if (q.size() <= 1){
-            if (w.empty() && l.empty()){
-                break;
-            }
-            int tmp = 0;
-            if (q.size() == 1){
-                tmp = q.front();
-                q.pop();
-            }
-            while (!w.empty()){
-                q.push (w.front());
-                w.pop();
-            }
-            while (!l.empty()){
-                q.push (l.front());
-                l.pop();
-            }
-            if (tmp) q.push (tmp);
-        }
+    vector<ll> cnt(n + 5, 0);
 
-        else{
-            int a = q.front();
-            q.pop();
-            int b = q.front();
-            q.pop();
-            
-            ll val_a = v[a].F * v[a].S;
-            ll val_b = v[b].F * v[b].S;
-
-            if (val_a >= val_b){
-                v[a].F = v[a].F + val_b / (2 * v[a].S);
-                v[a].S = v[a].S + val_b / (2 * v[a].F);
-                v[b].F = v[b].F + v[b].F / 2;
-                v[b].S = v[b].S + v[b].S / 2;
-                arr[b]++;
-                if (arr[a] < m) w.push (a);
-                if (arr[b] < m) l.push (b);
+    while (q.size() > 1){
+        vector<ll> w, l;
+        for (int i = 0; i < q.size() - 1; i += 2){
+            int x = q[i];
+            int y = q[i + 1];
+            ll a = s[x], b = t[x];
+            ll c = s[y], d = t[y];
+            if (a * b >= c * d){
+                s[x] = a + c * d / (2 * b);
+                t[x] = b + c * d / (2 * a);
+                s[y] = c + c / 2;
+                t[y] = d + d / 2;
+                w.emplace_back (x);
+                if (++cnt[y] < m) l.emplace_back (y);
             }
-            else{
-                v[b].F = v[b].F + val_a / (2 * v[b].S);
-                v[b].S = v[b].S + val_a / (2 * v[b].F);
-                v[a].F = v[a].F + v[a].F / 2;
-                v[a].S = v[a].S + v[a].S / 2;
-                arr[a]++;
-                if (arr[b] < m) w.push (b);
-                if (arr[a] < m) l.push (a);
+            else {
+                s[y] = c + a * b / (2 * d);
+                t[y] = d + a * b / (2 * c);
+                s[x] = a + a / 2;
+                t[x] = b + b / 2;
+                w.emplace_back (y);
+                if (++cnt[x] < m) l.emplace_back (x);
             }
         }
+        if (q.size() & 1) w.emplace_back (q.back());
+        q = w;
+        for (int i = 0; i < l.size(); i++) q.emplace_back (l[i]);
     }
-
-    cout << q.front() << '\n';
+    cout << q[0] << '\n';
+    return 0;
 }
