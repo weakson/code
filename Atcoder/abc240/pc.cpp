@@ -7,19 +7,32 @@
 #define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
 
+vector<bitset<10005> > dp(105);
+// bitset<10005> dp[105];
+
 int main(){
 	weakson;
 
 	int n, x;
 	cin >> n >> x;
 
-	bitset<10005> dp;
-
 	for (int i = 0; i < n; i++){
 		int a, b;
 		cin >> a >> b;
-		for (int j = 0; j < x; j++){
-			if (j + a <
-		}
+        if (i == 0){
+            dp[0][0] = 0;
+            dp[0][a] = true;
+            dp[0][b] = true;
+            continue;
+        }
+        for (int j = min(a, b); j <= x; j++){
+            if (j - a >= 0) dp[i][j] = dp[i][j] | dp[i - 1][j - a];
+            if (j - b >= 0) dp[i][j] = dp[i][j] | dp[i - 1][j - b];
+        }
 	}
+
+    if (dp[n - 1][x]) cout << "Yes\n";
+    else cout << "No\n";
+
+    return 0;
 }
