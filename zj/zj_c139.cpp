@@ -1,68 +1,76 @@
 #include<bits/stdc++.h>
+#define ll long long
+#define F first
+#define S second
+#define weakson ios::sync_with_stdio(0), cin.tie(0);
+#define pll pair<ll, ll>
+#define pii pair<int, int>
+#define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
 
-int arr[10][10];
-
-void build(){
-    arr[1][2] = 1;
-    arr[1][5] = 1;
-    arr[1][3] = 1;
-
-    arr[2][1] = 1;
-    arr[2][3] = 1;
-    arr[2][5] = 1;
-
-    arr[3][2] = 1;
-    arr[3][5] = 1;
-    arr[3][1] = 1;
-    arr[3][4] = 1;
-
-    arr[4][5] = 1;
-    arr[4][3] = 1;
-
-    arr[5][1] = 1;
-    arr[5][2] = 1;
-    arr[5][3] = 1;
-    arr[5][4] = 1;
-}
-
-bool visits[10][10];
-vector<int> ans(9);
-
-void dfs(int now, int cnt){
-
-    if (cnt == 9){
-        for (int i : ans) cout << i;
-        cout << '\n';
-        return;
-    }
-    for (int i = 1; i <= 5; i++){
-        //cout << "now = " << now << " i = " << i << '\n';
-        //cout << "visits[now][i] = " << visits[now][i] << '\n';
-        //cout << '\n';
-
-        if (visits[now][i] or visits[i][now]) continue;
-        if (arr[now][i] != 1 or arr[now][i] != 1) continue;
-
-        ans[cnt] = i;
-
-        visits[now][i] = true;
-        visits[i][now] = true;
-
-        dfs (i, cnt+1);
-
-        visits[now][i] = false;
-        visits[i][now] = false;
-    }
-
-    
-    return;
-}
 
 int main(){
-    ios::sync_with_stdio(false), cin.tie(0);
-    build();
-    ans[0] = 1;
-    dfs (1, 1);
+	weakson;
+
+    vector<pii> v = {
+        {1, 2},
+        {1, 3},
+        {1, 5},
+        {2, 3},
+        {2, 5},
+        {3, 4},
+        {3, 5},
+        {4, 5}
+    };
+
+    set<string> ans;
+    do{
+        if (v[0].F != 1) continue;
+
+        string A, B;
+        bool vis[10][10] = {};
+
+        int cur = v[0].F;
+        A += cur + '0';
+        for (auto i : v){
+            if (cur == i.F){
+                cur = i.S;
+                A += cur + '0';
+                vis[i.F][i.S] = true;
+                vis[i.S][i.F] = true;
+            }
+            else if (cur == i.S){
+                cur = i.F;
+                A += cur + '0';
+                vis[i.F][i.S] = true;
+                vis[i.S][i.F] = true;
+            }
+            else break;
+        }
+        if (A.size() == 9) ans.insert (A);
+
+        cur = v[0].S;
+        B += cur + '0';
+        for (auto i : v){
+            if (cur == i.F){
+                cur = i.S;
+                B += cur + '0';
+                vis[i.F][i.S] = true;
+                vis[i.S][i.F] = true;
+            }
+            else if (cur == i.S){
+                cur = i.F;
+                B += cur + '0';
+                vis[i.F][i.S] = true;
+                vis[i.S][i.F] = true;
+            }
+            else break;
+        }
+        if (B.size() == 0) ans.insert (B);
+
+    }while (next_permutation(v.begin(), v.end()));
+
+    for (auto i : ans) cout << i << '\n';
+
     return 0;
 }

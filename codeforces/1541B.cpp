@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+#define ll long long
+#define F first
+#define S second
+#define weakson ios::sync_with_stdio(0), cin.tie(0);
+#define pll pair<ll, ll>
+#define pii pair<int, int>
+#define dbg(x) cout << #x << " = " << x << endl;
+using namespace std;
+
+int main(){
+	weakson;
+
+    int t;
+    cin >> t;
+
+    while (t--){
+        int n;
+        cin >> n;
+
+        vector<ll> v(n + 1);
+        for (int i = 1; i <= n; i++) cin >> v[i];
+
+        ll ans = 0;
+        for (int j = 2; j <= n; j++){
+            int i = v[j] - j % v[j];
+            for (; i < j; i += v[j]){
+                if ((i + j) / v[j] == v[i]){
+                    ans++;
+                }
+            }
+        }
+
+        cout << ans << '\n';
+    }
+}

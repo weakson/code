@@ -8,7 +8,6 @@
 using namespace std;
 
 vector<bitset<10005> > dp(105);
-// bitset<10005> dp[105];
 
 int main(){
 	weakson;
