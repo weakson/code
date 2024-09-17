@@ -23,8 +23,28 @@ int main(){
     }
 
     int l = 0, r = 0;
+    map <char, int> tmp;
+    ll ans = 0;
 
-    while (l < n){
-        while (r < n && 
+    while (l < n && r < n){
+        while (r < n){
+            tmp[s[r]]++;
+            if (tmp[s[r]] > mp[s[r]]) break;
+            r++;
+            ans += r - l;
+        }
+
+        if (r == n){
+            break;
+        }
+        else{
+            while (tmp[s[r]] > mp[s[r]]){
+                tmp[s[l++]]--;
+            }
+            r++;
+            ans += r - l;
+        }
     }
+    
+    cout << ans << '\n';
 }
