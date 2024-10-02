@@ -1,36 +1,31 @@
 #include<bits/stdc++.h>
 #define ll long long
+#define F first
+#define S second
 #define weakson ios::sync_with_stdio(0), cin.tie(0);
-#define dbug(a) cout << #a << " = " << a << endl;
+#define pll pair<ll, ll>
+#define pii pair<int, int>
+#define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
 
 int main(){
-	weakson;
-	
-	int n;
+	// weakson;
 
-	while (cin >> n){
+    int n;
 
-		cin.ignore();
+    while (cin >> n){
+        string s;
 
-		string s;
-		getline (cin, s);
+        cin.ignore();
+        getline (cin, s);
 
-		string ans[517];
+        for (int i = 0; i < n; i++){
+            for (int j = i; j < s.size(); j += n){
+                cout << s[j];
+            }
+        }
+        cout << '\n';
+    }
 
-		int cnt = 0;
-		for (int i = 0; i < s.size(); i += n, cnt++){
-			ans[cnt] = s.substr (i, n);
-		}
-
-		for (int i = 0; i < n; i++){
-			for (int k = 0; k < cnt; k++){
-				cout << ans[k][i];
-			}
-		}
-		cout << '\n';
-	}
-
-	return 0;
-
+    return 0;
 }

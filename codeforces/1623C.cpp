@@ -9,20 +9,15 @@
 using namespace std;
 
 bool check (int n, vector<ll> v, int x){
-    for (int i = 2; i < n; i++){
-        if (v[i] <= x) continue;
-        ll d = (v[i] - x) / 3;
-        v[i] -= 3 * d;
-        v[i - 1] += d;
-        v[i - 2] += 2 * d;
+    vector<ll> tmp = v;
+    for (int i = n - 1; i >= 2; i--){
+        if (tmp[i] < x) return false;
+        ll d = min ((tmp[i] - x), v[i]) / 3;
+        tmp[i] -= 3 * d;
+        tmp[i - 1] += d;
+        tmp[i - 2] += 2 * d;
     }
-    dbg (x);
-    for (auto i : v) cout << i << ' ';
-    cout << endl;
-    cout << endl;
-    for (auto i : v){
-        if (i < x) return false;
-    }
+    if (tmp[0] < x || tmp[1] < x) return false;
     return true;
 }
 

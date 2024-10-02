@@ -1,13 +1,27 @@
 #include<bits/stdc++.h>
+#define ll long long
+#define F first
+#define S second
+#define weakson ios::sync_with_stdio(0), cin.tie(0);
+#define pll pair<ll, ll>
+#define pii pair<int, int>
+#define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
+
 int main(){
-    int num1,num2,num3,GCD;
-    scanf("%d",&num1);
-    for(int i=0;i<num1;i++){
-        GCD=0;
-        scanf("%d %d",&num2,&num3);
-        GCD=__gcd(num2,num3);
-        printf("%d\n",GCD);
+	weakson;
+
+    int t;
+    cin >> t;
+
+    while (t--){
+        int a, b;
+        cin >> a >> b;
+        while (b != 0){
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        cout << a << '\n';
     }
-    return 0;
 }
