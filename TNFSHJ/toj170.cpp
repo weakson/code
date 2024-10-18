@@ -1,101 +1,85 @@
-#include <iostream>
+#include<bits/stdc++.h>
+#define ll long long
+#define F first
+#define S second
+#define weakson ios::sync_with_stdio(0), cin.tie(0);
+#define pll pair<ll, ll>
+#define pii pair<int, int>
+#define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
 
-void A(int a){
-	for(int i=1;i<=a;i++){
-		for(int j=a-i;j>=0;j--){
-			cout<<" ";
-		}
-		for(int k=0;k<(2*i)-1;k++){
-			cout<<"*";
-		}
-		cout<<'\n';
-	}
+void fA (int h){
+    for (int i = 1; i <= h; i++){
+        for (int j = 0; j < h - i; j++) cout << ' ';
+        for (int j = 0; j < 2 * i - 1; j++) cout << '*';
+        cout << '\n';
+    }
 }
 
-void B(int a){
-	int b=2;
-	for(int l=0;l<(2*a);l++){
-		while(b>0){
-			for(int i=1;i<=a;i++){
-				for(int j=a-i;j>=0;j--){
-					cout<<" ";
-				}
-				for(int k=0;k<(2*i)-1;k++){
-					cout<<"*";
-				}
-				cout<<"\n";
-			}
-			b--;
-		}
-	}
+void fB (int h){
+    fA (h);
+    fA (h);
 }
 
-void C(int a){
-	for(int i=1;i<=a;i++){
-		for(int j=1;j<=i;j++){
-			for(int k=1;k<=a-j;k++){
-				cout<<" ";
-			}
-			for(int k=1;k<=(2*j)-1;k++){
-				cout<<"*";
-			}
-			cout<<'\n';
-		}
-	}
+void fC (int h){
+    for (int t = 1; t <= h; t++){
+        for (int i = 1; i <= t; i++){
+            for (int j = 0; j < h - i; j++) cout << ' ';
+            for (int j = 0; j < 2 * i - 1; j++) cout << '*';
+            cout << '\n';
+        }
+    }
 }
 
-void E(int a){
-	for(int i=1;i<=a;i++){
-		for(int j=a-i+1;j>=0;j--){
-			cout<<" ";
-		}
-		for(int k=0;k<(2*i)-1;k++){
-			cout<<"*";
-		}
-		cout<<"\n";
-	}
-	for(int i=0;i<(2*a)+3;i++){
-		cout<<"#";
-	}
-	cout<<'\n';
+void fD (int h){
+    fA (10 * h);
+}
+
+void fE (int h){
+    for (int i = 1; i <= h; i++){
+        for (int j = 0; j < h - i + 2; j++) cout << ' ';
+        for (int j = 0; j < 2 * i - 1; j++) cout << '*';
+        cout << '\n';
+    }
+    for (int i = 0; i < 2 * h + 3; i++) cout << '#';
+    cout << '\n';
+}
+
+void fF (int h){
+    fA (2 * h);
+}
+
+void fG (int h){
+    fA (3 * h);
+}
+
+void fH (int h){
+    fA (7 * h);
+}
+
+void fI (int h){
+    fA (4 * h - 1);
 }
 
 int main(){
-	ios::sync_with_stdio(0),cin.tie(0);
-	int a,c;
-	char b;
-	cin>>a;
-	for(int i=0;i<a;i++){
-		cin>>b>>c;
-		if(b=='A'){
-			A(c);
-		}
-		else if(b=='B'){
-			B(c);
-		}
-		else if(b=='C'){
-			C(c);
-		}
-		else if(b=='D'){
-			A(c*10);
-		}
-		else if(b=='E'){
-			E(c);
-		}
-		else if(b=='F'){
-			A(c*2);
-		}
-		else if(b=='G'){
-			A(c*3);
-		}
-		else if(b=='H'){
-			A(c*7);
-		}
-		else if(b=='I'){
-			A((c*4)-1);
-		}
-		cout<<'\n';
-	}
-	return 0;
+	weakson;
+
+    int t;
+    cin >> t;
+
+    while (t--){
+        char c;
+        int h;
+        cin >> c >> h;
+        if (c == 'A') fA (h);
+        else if (c == 'B') fB (h);
+        else if (c == 'C') fC (h);
+        else if (c == 'D') fD (h);
+        else if (c == 'E') fE (h);
+        else if (c == 'F') fF (h);
+        else if (c == 'G') fG (h);
+        else if (c == 'H') fH (h);
+        else if (c == 'I') fI (h);
+        cout << '\n';
+    }
 }

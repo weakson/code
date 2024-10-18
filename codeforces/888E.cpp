@@ -1,59 +1,55 @@
 #include<bits/stdc++.h>
 #define ll long long
+#define F first
+#define S second
 #define weakson ios::sync_with_stdio(0), cin.tie(0);
-#define dbug(a) cout << #a << " = " << a << endl;
+#define pll pair<ll, ll>
+#define pii pair<int, int>
+#define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
-
-set<ll> s;
 
 int main(){
 	weakson;
-	
-	ll n, m;
-	cin >> n >> m;
 
-	vector<ll> a, b;
+    ll n, m;
+    cin >> n >> m;
 
-	for (int i = 0; i < n; i++){
-		ll temp;
-		cin >> temp;
+    vector<ll> a, b;
+    for (int i = 0; i < n; i++){
+        ll tmp; cin >> tmp;
+        if (i < n / 2) a.emplace_back (tmp);
+        else b.emplace_back (tmp);
+    }
 
-		if (i < n / 2) a.emplace_back(temp);
-		else b.emplace_back(temp);
-	}
+    set<ll> s;
+    ll ans = -1;
+    for (int i = 0; i < (1 << a.size()); i++){
+        ll sum = 0;
+        for (int j = 0; j < a.size(); j++){
+            if ((1 << j) & i){
+                sum += a[j] % m;
+                sum %= m;
+            }
+        }
+        ans = max (ans, sum);
+        s.insert (sum);
+    }
 
-	int len = a.size();
-	ll MAX = 0;
-	for (int i = 0; i < (1 << len); i++){ // half of array
-		ll sum = 0;
-		for (int j = 0; j < len; j++){
-			if (i & (1 << j)) sum = (sum % m + a[j] % m) % m;
-		}
-		MAX = max (MAX, sum);
-		s.insert (sum);
-	}
+    for (int i = 0; i < (1 << b.size()); i++){
+        ll sum = 0;
+        for (int j = 0; j < b.size(); j++){
+            if ((1 << j) & i){
+                sum += b[j] % m;
+                sum %= m;
+            }
+        }
+        ans = max (ans, sum);
 
-	len = b.size();
-	for (int i = 0; i < (1 << len); i++){ // the other half
-		ll sum = 0;
-		for (int j = 0; j < len; j++){
-			if (i & (1 << j)) sum = (sum % m + b[j] % m) % m;
-		}
-		MAX = max (MAX, sum);
-		// find the first element which > m - sum - 1
-		auto it = s.upper_bound (m - sum - 1); 
+        auto it = s.upper_bound (m - sum - 1);
+        if (it == s.begin()) continue;
 
-		if (it != s.begin()) it--;
+        ans = max (ans, sum + *--it);
+    }
 
-		if (*it > m - sum - 1) continue;
-
-		MAX = max (*it + sum, MAX);
-	}
-
-	cout << MAX << '\n';
-	
-	return 0;
+    cout << ans << '\n';
 }
-
-// 4 9
-// 5 2 4 1
