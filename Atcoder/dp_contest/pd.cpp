@@ -16,6 +16,10 @@ int main(){
 		for(int j = w; j >= weight; j--){
 			dp[j] = max(dp[j], dp[j - weight] + value);
 		}
+        // for debug
+        // cout << "dp = ";
+        // for (auto i : dp) cout << i << ' ';
+        // cout << endl;
 	}
 	cout << dp[w] << '\n';
 	return 0;
