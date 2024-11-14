@@ -9,18 +9,19 @@
 #define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
 
+int n;
 vector<vector<int> > g;
-bitset<10005> vis, node_col;
-int n, cnt;
+vector<int> dp[2];
 
-void dfs (int v, bool col){
-    node_col[v] = col;
-    if (cnt == n) return;
+void dfs (int v, int fat){
+    dp[0][v] = 0;
+    dp[1][v] = 1;
+
     for (auto u : g[v]){
-        if (vis[u]) continue;
-        vis[v] = true;
-        cnt++;
-        dfs (u, !col);
+        if (u == fat) continue;
+        dfs (u, v);
+        dp[0][v] += dp[1][u];
+        dp[1][v] += min (dp[0][u], dp[1][u]);
     }
 }
 
@@ -37,19 +38,10 @@ int main(){
         g[b].emplace_back (a);
     }
 
-    int ans = 1e9;
-    for (int i = 1; i <= n; i++){
-        cnt = 1;
-        vis.reset();
-        node_col.reset();
-        dfs (i, false);
-        int col_1 = node_col.count();
-        int col_2 = n - col_1;
-        ans = min ({ans, col_1, col_2});
-    }
+    dp[0].resize(n + 1);
+    dp[1].resize(n + 1);
 
-    int ans1 = 0, ans2 = 0;
-    for (int i = 1; i <= n; i++) (node_col[i] ? ans1++ : ans2++);
+    dfs (1, -1);
 
-    cout << min (ans1, ans2) << '\n';
+    cout << min (dp[0][1], dp[1][1]) << '\n';
 }

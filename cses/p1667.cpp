@@ -4,77 +4,65 @@
 #define S second
 #define weakson ios::sync_with_stdio(0), cin.tie(0);
 #define pll pair<ll, ll>
+#define pii pair<int, int>
+#define swap(a,b) a ^= b ^= a ^= b
 #define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
 
-vector<vector<int> > v;
-vector<int> par;
 int n, m;
+vector<vector<int> > g;
+vector<int> parent;
+bitset<100005> vis;
 
-void bfs (){
-	queue<int> q;
-	bitset<100005> vis;
-	
-	q.emplace (1);
-	vis[1] = true;
-	bool is_found = false;
+bool shortest_bfs (){
+    queue<int> q;
+    vis[1] = true;
+    q.push (1);
 
-	while (!q.empty()){
-		int u = q.front();
-		q.pop();
+    while (!q.empty()){
+        int v = q.front();
+        q.pop();
 
-		for (auto i : v[u]){
-			if (!vis[i]){
-				vis[i] = true;
-				q.emplace (i);
-				par[i] = u;
-			}
-			if (i == n){
-				is_found = true;
-				break;
-			}
-		}
-		if (is_found) break;
-	}
-
-	if (!is_found){
-		cout << "IMPOSSIBLE\n";
-		return;
-	}
-
-	int temp = n;
-	vector<int> ans;
-	while (temp != 1){
-		ans.push_back (temp);
-		temp = par[temp];
-	}
-	ans.push_back (1);
-
-	cout << ans.size() << '\n';
-	while (!ans.empty()){
-		cout << ans.back() << ' ';
-		ans.pop_back();
-	}
-	cout << '\n';
-	
-	return;
+        for (auto u : g[v]){
+            if (vis[u]) continue;
+            vis[u] = true;
+            parent[u] = v;
+            if (u == n) return true;
+            q.push (u);
+        }
+    }
+    
+    return false;
 }
 
 int main(){
 	weakson;
 
-	cin >> n >> m;
-	v.resize (n + 1);
-	par.resize (n + 1);
+    cin >> n >> m;
 
-	for (int i = 0; i < m; i++){
-		int a, b;
-		cin >> a >> b;
-		v[a].emplace_back(b);
-		v[b].emplace_back(a);
-	}
+    g.resize (n + 1);
+    parent.resize (n + 1);
+    for (int i = 0; i < m; i++){
+        int a, b;
+        cin >> a >> b;
+        g[a].emplace_back (b);
+        g[b].emplace_back (a);
+    }
 
-	bfs();
+    parent[1] = -1;
+    if (shortest_bfs()){
+        stack<int> stk;
+        int NODE = n;
+        while (NODE != -1){
+            stk.push (NODE);
+            NODE = parent[NODE];
+        }
 
-	return 0;
+        cout << stk.size() << '\n';
+        while (!stk.empty()){
+            cout << stk.top() << ' ';
+            stk.pop();
+        }
+    }
+    else cout << "IMPOSSIBLE\n";
 }
