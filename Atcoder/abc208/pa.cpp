@@ -12,17 +12,9 @@ using namespace std;
 int main(){
 	weakson;
 
-    long long n, k;
-    while (cin >> n >> k){
-        long long ans = 0;
-        long long smk = n;
-        long long butt = 0;
-        while (smk != 0){
-            ans += smk;
-            butt += smk;
-            smk = butt / k;
-            butt %= k;
-        }
-        cout << ans << '\n';
-    }
+    int a, b;
+    cin >> a >> b;
+
+    if (b >= 1 * a && b <= 6 * a) cout << "Yes\n";
+    else cout << "No\n";
 }

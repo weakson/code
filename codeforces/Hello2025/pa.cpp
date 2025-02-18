@@ -11,18 +11,12 @@ using namespace std;
 
 int main(){
 	weakson;
+  int t;
+  cin >> t;
 
-    long long n, k;
-    while (cin >> n >> k){
-        long long ans = 0;
-        long long smk = n;
-        long long butt = 0;
-        while (smk != 0){
-            ans += smk;
-            butt += smk;
-            smk = butt / k;
-            butt %= k;
-        }
-        cout << ans << '\n';
-    }
+  while (t--){
+    ll n, m;
+    cin >> n >> m;
+    cout << max (n, m) + 1 << '\n';
+  }
 }

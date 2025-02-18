@@ -7,7 +7,7 @@ int main(int argc, char* argv[]){
 	registerGen (argc, argv, 1);
  
 	const int N = 100000;
-	const long long K = 10000000000;
+	long long K = rnd.next (1, N);
 	const int A = 10000000;
  
 	cout << N << ' ' << K << '\n';

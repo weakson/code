@@ -10,23 +10,19 @@ using namespace std;
 int main(){
 	weakson;
 
-	int a[3];
-	cin >> a[0] >> a[1] >> a[2];
+    int a, b, c;
+    cin >> a >> b >> c;
 
-	sort (a, a + 3);
+    if (a > c) swap (a, c);
+    if (b > c) swap (b, c);
+    if (a > b) swap (a, b);
 
-	cout << a[0] << ' ' << a[1] << ' ' << a[2] << '\n';
+    cout << a << ' ' << b << ' ' << c << '\n';
 
-	if (a[0] + a[1] < a[2]){
-		cout << "No\n";
-		return 0;
-	}
-
-	ll x = a[0] * a[0], y = a[1] * a[1], z = a[2] * a[2];
-
-	if (x + y == z) cout << "Right\n";
-	else if (x + y > z) cout << "Acute\n";
-	else cout << "Obtuse\n";
+    if (a + b <= c) cout << "No\n";
+    else if (a * a + b * b < c * c) cout << "Obtuse\n";
+    else if (a * a + b * b == c * c) cout << "Right\n";
+    else cout << "Acute\n";
 
 	return 0;
 }

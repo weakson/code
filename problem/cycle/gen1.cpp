@@ -15,11 +15,12 @@ int main(int argc, char* argv[]){
 	int n = N;
  
 	for (int i = 0; i < n; i++){
-	    cout << rnd.next (1, A);
+	    cout << A;
 	    if (i != n - 1) cout << ' ';
 	}
 	cout << '\n';
 	
 	return 0;
 }
+
 

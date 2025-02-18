@@ -12,17 +12,18 @@ using namespace std;
 int main(){
 	weakson;
 
-    long long n, k;
-    while (cin >> n >> k){
-        long long ans = 0;
-        long long smk = n;
-        long long butt = 0;
-        while (smk != 0){
-            ans += smk;
-            butt += smk;
-            smk = butt / k;
-            butt %= k;
+    int n;
+    cin >> n;
+
+    if (n % 4 == 0){
+        if (!(n % 100 == 0 && n % 400 != 0)){
+            cout << "a leap year\n";
         }
-        cout << ans << '\n';
+        else{
+            cout << "a normal year\n";
+        }
+    }
+    else{
+        cout << "a normal year\n";
     }
 }

@@ -12,17 +12,11 @@ using namespace std;
 int main(){
 	weakson;
 
-    long long n, k;
-    while (cin >> n >> k){
-        long long ans = 0;
-        long long smk = n;
-        long long butt = 0;
-        while (smk != 0){
-            ans += smk;
-            butt += smk;
-            smk = butt / k;
-            butt %= k;
-        }
-        cout << ans << '\n';
-    }
+  int t;
+  cin >> t;
+
+  while (t--){
+    ll l, r;
+    cin >> l >> r;
+  }
 }
