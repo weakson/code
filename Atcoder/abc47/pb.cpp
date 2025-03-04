@@ -27,8 +27,7 @@ int main(){
 	}
 
 	int ans = (x_max - x_min) * (y_max - y_min);
+
     if (x_max - x_min < 0 || y_max - y_min < 0) cout << 0 << '\n';
     else cout << ans << '\n';
-
-	return 0;
 }
