@@ -7,15 +7,18 @@ struct Node{
     Node *next = nullptr;
     Node *prev = nullptr;
     ll num;
+
     Node(int x = 0){
         num = x;
     }
 };
 
 struct Linked_list{
+
     Node *head;
     Node *tail;
     int n = 0;
+
     Linked_list(){
         head = new Node;
         tail = new Node;
@@ -24,6 +27,7 @@ struct Linked_list{
         head -> next = tail;
         tail -> prev = head;
     }
+
     Node *insert_after(Node *node, ll data){
         Node *a = node;
         Node *b = new Node(data);
@@ -35,9 +39,11 @@ struct Linked_list{
         n++;
         return b;
     }
+    
     Node *insert_before(Node *node, ll data){
         return insert_after(node -> prev, data);
     }
+
     void delete_after(Node *node){
         Node *a = node;
         Node *c = node -> next -> next;
@@ -45,18 +51,23 @@ struct Linked_list{
         c -> prev = a;
         n--;
     }
+
     void delete_before(Node *node){
         delete_after(node -> prev -> prev);
     }
+
     Node *front(){
         return head -> next;
     }
+
     Node *back(){
         return tail -> prev;
     }
+
     int size(){
         return n;
     }
+
     Node *find(ll data){
         bool is_found = false;
         Node *it;
@@ -69,10 +80,14 @@ struct Linked_list{
         if (is_found) return it;
         else return tail;
     }
+
+    void travel (Node *Now){
+        if (Now == tail) return;
+        cout << Now -> num << ' ';
+        travel (Now -> next);
+    }
 };
-Linked_list lin();
 
 int main(){
     weakson;
-    return 0;
 }

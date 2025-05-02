@@ -52,6 +52,7 @@ int main(){
         }
 
         Time += M;
+
         // 確保 Type 在 0 和 1 之間循環
         Type = (Type + 1) % 2;
     }
