@@ -1,43 +1,48 @@
 #include<bits/stdc++.h>
+#define ll long long
+#define F first
+#define S second
+#define weakson ios::sync_with_stdio(0), cin.tie(0);
+#define pll pair<ll, ll>
+#define pii pair<int, int>
+#define swap(a,b) a ^= b ^= a ^= b
+#define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
 
-stack<int> station;
-queue<int> train;
-
 int main(){
-	ios::sync_with_stdio(0),cin.tie(0);
-	int num,car;
-	bool can,out;
-	while(cin>>num){
-		if(num==0) break;
-		while(1){
-			out=0;
-			can=1;
-			while(!station.empty()) station.pop();
-			while(!train.empty()) train.pop();
-			for(int i=1;i<=num;i++) train.push(i);
-			for(int i=1;i<=num;i++){
-				cin>>car;
-				if(car==0){
-				       	out=1;
-					break;
-				}
-				while(station.empty() || station.top()!=car){
-					if(train.empty()){
-						can=0;
-						break;
-					}
-					else{
-						station.push(train.front());
-						train.pop();
-					}
-				}
-				if(can) station.pop();
-			}
-			if(out) break;
-			else if(can) cout<<"Yes\n";
-			else cout<<"No\n";
-		}
-		cout<<'\n';
-	}
+    weakson;
+
+    int N;
+
+    while (cin >> N && N != 0){
+
+        int A[1005], B[1005];
+        while (cin >> B[0] && B[0] != 0){
+
+            for (int i = 1; i < N; i++) cin >> B[i];
+            for (int i = 0; i < N; i++) A[i] = i + 1;
+
+            stack<int> Station;
+            bool is_valid = true;
+
+            int pos_A = 0, pos_B;
+            for (pos_B = 0; pos_B < N; pos_B++){
+                while (Station.empty() || Station.top() != B[pos_B]){
+                    if (pos_A >= N) break;
+                    Station.push (A[pos_A++]);
+                }
+
+                if (Station.empty() || Station.top() != B[pos_B]){
+                    is_valid = false;
+                    break;
+                }
+
+                Station.pop();
+            }
+
+            if (is_valid) cout << "Yes\n";
+            else cout << "No\n";
+        }
+        cout << '\n';
+    }
 }
