@@ -2,7 +2,14 @@
 using namespace std;
 
 int Win[6]  = {5, 0, 0, 0, 0, 2};
+// Win[0] = 5;
+// Win[2] = 0;
+// Win[5] = 2;
+
 int Lose[6] = {2, 0, 5, 0, 0, 0};
+// Lose[0] = 2;
+// Lose[2] = 5;
+// Lose[5] = 0;
 
 int main(){
     int x[15], n, y[15];
