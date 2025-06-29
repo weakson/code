@@ -1,19 +1,32 @@
 #include<bits/stdc++.h>
+#define ll long long
+#define F first
+#define S second
+#define weakson ios::sync_with_stdio(0), cin.tie(0);
+#define pll pair<ll, ll>
+#define pii pair<int, int>
+#define swap(a,b) a ^= b ^= a ^= b
+#define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
 
-multiset<int,greater<int>> s;
-int printer;
-
 int main(){
-    ios::sync_with_stdio(0),cin.tie(0);
-    
-    while(cin>>printer){
-        if(printer==0) break;
-        if(printer>0) s.insert(printer);
-        if(s.empty()) continue;
-        else if(printer==-2) cout<<*s.begin()<<' ',s.erase(s.begin());
-        else if(printer==-1) cout<<*s.rbegin()<<' ',s.erase(prev(s.end()));
+    weakson;
+
+    multiset<int> s;
+    int n;
+
+    while (cin >> n && n != 0){
+        if (n < 0 && s.empty()) continue;
+        if (n == -1){
+            cout << *s.begin() << ' '; 
+            s.erase (s.begin());
+        }
+        else if (n == -2){
+            cout << *--s.end() << ' ';
+            s.erase (--s.end());
+        }
+        else s.insert (n);
     }
-    cout<<'\n';
-    return 0;
+
+    cout << '\n';
 }

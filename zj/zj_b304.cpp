@@ -18,19 +18,18 @@ int main(){
         string s;
         getline (cin, s);
         stack<char> stk;
-        bool is_space = true;
 
         for (int i = 0; i < s.size(); i++){
-            if (s[i] != ' ') is_space = false;
             if (stk.empty()) stk.push (s[i]);
             else if (s[i] == ')' && stk.top() == '(') stk.pop();
             else if (s[i] == ']' && stk.top() == '[') stk.pop();
             else stk.push (s[i]);
         }
 
-        if (stk.empty() || is_space) cout << "Yes\n";
+        if (stk.empty()) cout << "Yes\n";
         else cout << "No\n";
     }
 
     return 0;
 }
+
