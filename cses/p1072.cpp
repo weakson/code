@@ -12,9 +12,17 @@ using namespace std;
 int main(){
     weakson;
 
-    int a, b, c, d;
-    cin >> a >> b >> c >> d;
+    int n;
+    cin >> n;
 
-    if (c < b && d > a) cout << "yes\n";
-    else cout << "no\n";
+    ll a = 2, b = 0;
+    ll i = 0, j = 3;
+
+    for (int k = 0; k < n; k++){
+        cout << a * b << '\n';
+        a += i;
+        b += j;
+        i += 2;
+        j++;
+    }
 }

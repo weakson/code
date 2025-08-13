@@ -9,12 +9,23 @@
 #define dbg(x) cout << #x << " = " << x << endl;
 using namespace std;
 
+const ll M = 1e9 + 7;
+
+ll pow (ll n){
+    if (n == 1) return 2;
+
+    ll ans = pow(n / 2) % M;
+
+    if (n & 1) return (2 * (ans * ans) % M) % M;
+    else return (ans * ans) % M;
+}
+
 int main(){
     weakson;
+    
+    ll n;
+    cin >> n;
 
-    int a, b, c, d;
-    cin >> a >> b >> c >> d;
+    cout << pow(n) % M << '\n';
 
-    if (c < b && d > a) cout << "yes\n";
-    else cout << "no\n";
 }
