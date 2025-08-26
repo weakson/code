@@ -28,6 +28,19 @@ struct Linked_list{
         tail -> prev = head;
     }
 
+    ~Linked_list(){
+        Node *i = head -> next;
+
+        while (i != tail){
+            Node *temp = i -> next;
+            delete i;
+            i = temp;
+        }
+
+        if (!head) delete head;
+        if (!tail) delete tail;
+    }
+
     Node *insert_after(Node *node, ll data){
         Node *a = node;
         Node *b = new Node(data);
@@ -68,17 +81,14 @@ struct Linked_list{
         return n;
     }
 
-    Node *find(ll data){
-        bool is_found = false;
+    Node *find (ll data){
         Node *it;
         for (it = head -> next; it != tail; it = it -> next){
             if (it -> num == data){
-                is_found = true;
-                break;
+                return it;
             }
         }
-        if (is_found) return it;
-        else return tail;
+        return tail;
     }
 
     void travel (Node *Now){

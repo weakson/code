@@ -21,7 +21,7 @@ int main(){
 		dq_M.clear();
 		dq_m.clear();
 
-		ll sum = 0;
+		ll sum = 0, ans = 1e18;
 
 		for (int i = 1; i < k; i++){
 			sum += v[i];
@@ -56,11 +56,11 @@ int main(){
 			while (dq_M.front() <= i - k) dq_M.pop_front();
 			while (dq_m.front() <= i - k) dq_m.pop_front();
 
-			cout << (sum - v[dq_M.front()] - v[dq_m.front()]) / (k - 2) << ' ';
+            ans = min (ans, (sum - v[dq_M.front()] - v[dq_m.front()]) / (k - 2));
 
 			sum -= v[i - k + 1];
 		}
-		cout << '\n';
+		cout << ans << '\n';
 	}
 	return 0;
 	
