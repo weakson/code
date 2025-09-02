@@ -26,6 +26,10 @@ int main(int argc, char* argv[]){
     int pl = ouf.readInt (1, n, "l");
     int pr = ouf.readInt (1, n, "r");
 
+    if (pl > pr){
+        quitf (_wa, "The answer is wrong, l is bigger than r");
+    }
+
     ll psum = 0;
     for (int i = pl; i <= pr; i++) psum += v[i];
 

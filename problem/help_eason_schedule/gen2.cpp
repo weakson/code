@@ -13,14 +13,18 @@ int main(int argc, char* argv[]){
     int n = MAXN;
 
     cout << n << '\n';
+
+    long long Min = 2000000000;
  
 	for (int i = 0; i < n; i++){
-	    cout << rnd.next (1, MAXA);
+        long long a = rnd.next(1, MAXA);
+        Min = min (Min, a);
+	    cout << a;
 	    if (i != n - 1) cout << ' ';
 	}
 	cout << '\n';
 
-    long long x = rnd.next (1LL, MAXX);
+    long long x = rnd.next (Min, MAXX);
 
     cout << x << '\n';
 	
